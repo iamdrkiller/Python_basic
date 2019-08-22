@@ -29,15 +29,16 @@ list_data = [
 
 while True:
     data_string = input('Введите дату в формате ДД.ММ.ГГГГ: ')
-    if len(data_string) == 10:
-        dd = data_string[:2:1]
-        mm = data_string[3:5:1]
-        yyyy = data_string[6:10:1]
-        if (data_string[0:1].isdigit()) and (data_string[3:4].isdigit()) and (data_string[6:9]) and (data_string[2] == data_string[5] == '.'):
+    if (len(data_string) == 10) and (len(data_string.split('.')) == 3):
+        dd = data_string.split('.')[0]
+        mm = data_string.split('.')[1]
+        yyyy = data_string.split('.')[2]
+        if (dd.isdigit()) and (mm.isdigit()) and (yyyy.isdigit()):
             dd = int(dd)
             mm = int(mm)
             yyyy = int(yyyy)
-            if (dd <= 31) and (mm <= 12):
+            if (((1 <= dd <= 31) and (mm in [1, 3, 5, 7, 8, 10, 12])) or ((1 <= dd <= 30) and (mm in [4, 6, 9, 11])) \
+                or ((1 <= dd <= 28) and (mm == 2))) and (1 <= yyyy <= 9999):
                 print(f'Введённая дата: {list_data[0][dd - 1]} {list_data[1][mm - 1]} {yyyy} года'.capitalize())
                 break
     print('Введите дату корректно')
